@@ -25,9 +25,7 @@ public class Course{
     }
 
     public String getCourseName() { return this.courseName; }
-    public List<Material> getMaterials() { return this.materials; }
     public List<Observer> getObservers() { return this.observers; }
-
 
     public void registerObserver(Observer observer) {
         observers.add(observer);

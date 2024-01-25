@@ -20,7 +20,6 @@ public class Student{
     public String getStudentName() {
         return this.studentName;
     }
-
     public List<Course> getEnrolledCourses() {
         return this.enrolledCourses;
     }
