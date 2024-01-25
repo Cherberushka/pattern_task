@@ -2,8 +2,6 @@ package factory;
 
 import portal.Course;
 
-public class CourseFactory {
-    public Course createCourse(String courseName) {
-        return new Course(courseName);
-    }
+public interface CourseFactory {
+   Course createCourse(String courseName);
 }
