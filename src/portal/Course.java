@@ -24,18 +24,18 @@ public class Course{
         notifyMaterial(material);
     }
 
+
     public String getCourseName() { return this.courseName; }
     public List<Observer> getObservers() { return this.observers; }
-
     public void registerObserver(Observer observer) {
         observers.add(observer);
     }
     public void removeObserver(Observer observer) { observers.remove(observer); }
 
+
     public void notifyProgress(Student student) {
         new StudentsObserver(student).updateProgress(this);;
     }
-
     private void notifyMaterial(Material material) {
         for (Observer observer : observers) {
             observer.notifyNewMaterial(material);
