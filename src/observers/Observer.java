@@ -5,6 +5,6 @@ import portal.Material;
 import student.Student;
 
 public interface Observer {
-    void updateProgress(Student student, Course course);
+    void updateProgress(Course course);
     void notifyNewMaterial(Material material);
 }

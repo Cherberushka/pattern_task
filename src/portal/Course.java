@@ -1,6 +1,7 @@
 package portal;
 
 import observers.Observer;
+import observers.StudentsObserver;
 import student.Student;
 
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.ArrayList;
 
 
 public class Course{
-    private String courseName;
-    private List<Material> materials;
-    private List<Observer> observers;
+    private final String courseName;
+    private final List<Material> materials;
+    private final List<Observer> observers;
 
     public Course(String courseName) {
         this.courseName = courseName;
@@ -20,11 +21,12 @@ public class Course{
 
     public void addMaterial(Material material) {
         materials.add(material);
-        notifyNewMaterial(material);
+        notifyMaterial(material);
     }
 
     public String getCourseName() { return this.courseName; }
     public List<Material> getMaterials() { return this.materials; }
+    public List<Observer> getObservers() { return this.observers; }
 
 
     public void registerObserver(Observer observer) {
@@ -33,10 +35,10 @@ public class Course{
     public void removeObserver(Observer observer) { observers.remove(observer); }
 
     public void notifyProgress(Student student) {
-        student.updateProgress(student,this);
+        new StudentsObserver(student).updateProgress(this);;
     }
 
-    private void notifyNewMaterial(Material material) {
+    private void notifyMaterial(Material material) {
         for (Observer observer : observers) {
             observer.notifyNewMaterial(material);
         }

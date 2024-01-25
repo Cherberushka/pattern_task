@@ -21,5 +21,6 @@ public class Main {
         student1.dropCourse(javaCourse);
         javaCourse.addMaterial(new Material("Introduction to Java Part II", "Погружаемся в мир программирования на Java"));
         javaCourse.notifyProgress(student1);
+        javaCourse.notifyProgress(student2);
     }
 }

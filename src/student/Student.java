@@ -1,15 +1,16 @@
 package student;
 
 import observers.Observer;
+import observers.StudentsObserver;
 import portal.Course;
 import portal.Material;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student implements Observer{
-    private String studentName;
-    private List<Course> enrolledCourses;
+public class Student{
+    private final String studentName;
+    private final List<Course> enrolledCourses;
 
     public Student(String studentName) {
         this.studentName = studentName;
@@ -26,26 +27,21 @@ public class Student implements Observer{
 
     public void enrollCourse(Course course) {
         enrolledCourses.add(course);
-        course.registerObserver(this);
+        course.registerObserver(new StudentsObserver(this));
     }
 
     public void dropCourse(Course course) {
         enrolledCourses.remove(course);
-        course.removeObserver(this);
-    }
 
-    @Override
-    public void updateProgress(Student student, Course course) {
-        if (enrolledCourses.contains(course)) {
-            System.out.println("Student " + student.getStudentName() + " has made progress in course: " + course.getCourseName());
+        // Поиск и удаление конкретного наблюдателя, связанного с этим учеником
+        List<Observer> courseObservers = course.getObservers();
+        for (Observer observer : courseObservers) {
+            if (observer instanceof StudentsObserver studentsObserver) {
+                if (studentsObserver.getStudent().equals(this)) {
+                    course.removeObserver(studentsObserver);
+                    break;
+                }
+            }
         }
-        else {
-            System.out.println("Student " + student.getStudentName() + " don't enrolled course: " + course.getCourseName());
-        }
-    }
-
-
-    public void notifyNewMaterial(Material material) {
-        System.out.println("Student " + studentName + " has received new material of type: " + material.getType());
     }
 }
